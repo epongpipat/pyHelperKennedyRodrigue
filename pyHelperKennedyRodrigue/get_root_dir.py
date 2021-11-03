@@ -1,3 +1,5 @@
+import sys
+
 def get_root_dir():
     if sys.platform == 'darwin':
         root_dir = '/Volumes'
