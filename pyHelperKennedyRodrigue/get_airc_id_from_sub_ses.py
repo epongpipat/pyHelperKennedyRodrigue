@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
+from .get_root_dir import get_root_dir
 
 def get_airc_id_from_sub_ses(sub, ses):
     """
     get airc id from subject id and session/wave number
     """
-    root_dir = '/raid/data'
+    root_dir = get_root_dir()
     in_path = '%s/shared/incoming/ids_long-format.csv' % (root_dir)
     df = pd.read_csv(in_path)
     mri_id_list = list(df.loc[df.study_id == sub, 'mri_id'])
