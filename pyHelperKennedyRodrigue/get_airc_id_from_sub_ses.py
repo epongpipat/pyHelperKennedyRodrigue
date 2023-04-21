@@ -1,19 +1,27 @@
 import pandas as pd
 import numpy as np
-from .get_root_dir import get_root_dir
+
+# from pyHelperKennedyRodrigue import get_root_dir
+from get_root_dir import get_root_dir
+
 
 def get_airc_id_from_sub_ses(sub, ses):
     """
     get airc id from subject id and session/wave number
     """
-    root_dir = get_root_dir()
-    in_path = '%s/shared/incoming/ids_long-format.csv' % (root_dir)
+    root_dir = get_root_dir("kenrod")
+    in_path = f"{root_dir}/incoming/ids_long-format.csv"
     df = pd.read_csv(in_path)
-    mri_id_list = list(df.loc[df.study_id == sub, 'mri_id'])
-    mri_id_numbers = np.unique([float(x.replace('3tb', '').replace('a', '').replace('b', '')) for x in mri_id_list])
-    if ses == 1:
-        mri_id_number = int(mri_id_numbers[mri_id_numbers < 4188][0]) # probably needs a better system here
-    elif ses == 2:
-        mri_id_number = int(mri_id_numbers[mri_id_numbers > 4188][0])
-    mri_id = '3tb%s' % (mri_id_number)
+    df_sub = df[df.study_id == sub]
+    df_sub = df_sub[df_sub.wave == ses]
+    mri_id = df_sub.mri_id.values
+
+    if len(mri_id) == 0:
+        raise Exception("airc id not found")
+    elif len(mri_id) > 1:
+        warnings.warn("multiple airc ids found")
+        return mri_id
+    else:
+        mri_id = mri_id[0]
+
     return mri_id
