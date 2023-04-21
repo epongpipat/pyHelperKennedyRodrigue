@@ -24,7 +24,7 @@ def get_root_dir(dir):
     if dir not in dir_list:
         raise Exception("dir must be one of: {}".format(dir_list))
 
-    in_path = pkg_resources.resource_filename(__name__, "root_dir.csv")
+    in_path = pkg_resources.resource_filename(__name__, "data/root_dir.csv")
     df = pd.read_csv(in_path)
     os = sys.platform
     os = os.title()
