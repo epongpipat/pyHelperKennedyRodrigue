@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
-from . import get_root_dir
+from pyHelperKennedyRodrigue import get_root_dir
+
 
 def get_airc_id_from_sub_ses(sub, ses):
     """
