@@ -11,5 +11,6 @@ setup(
     packages=["pyHelperKennedyRodrigue"],
     install_requires=["numpy", "pandas"],
     zip_safe=False,
+    package_data={'pyHelperKennedyRodrigue': ['data/*']},
     include_package_data=True,
 )
